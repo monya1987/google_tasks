@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 
 /*Actions*/
 import { loginAction, logoutAction } from '../actions/login';
@@ -23,9 +23,9 @@ class Login extends Component {
         return (
             <div className="Login">
                 {this.props.login.isLoggedIn ?
-                    <RaisedButton label={name} secondary={true} onClick={this.handlelogOut} />
+                    <Button secondary={true} onClick={this.handlelogOut}>{name}</Button>
                     :
-                    <RaisedButton label="Log in with Google" secondary={true} onClick={this.handleLogin} />
+                    <Button secondary={true} onClick={this.handleLogin}>Log in with Google</Button>
                 }
             </div>
         );

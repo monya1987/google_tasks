@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 /*Actions*/
 import { getTaskList } from '../actions/task';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 
 
 
@@ -45,8 +45,8 @@ class Task extends Component {
         return (
             <div>
                 <h2><span>List name:</span> {this.props.location.itemTitle}</h2>
-                <RaisedButton onClick={this.handleAddTask} label="Add Task" />
-                <RaisedButton style={{float: 'right'}} onClick={this.handleClearCompleted} label="Clear completed" />
+                <Button onClick={this.handleAddTask}>Add Task</Button>
+                <Button style={{float: 'right'}} onClick={this.handleClearCompleted}>Clear completed</Button>
                 <br/><br/>
                 {this.props.task.map((item, index) => {
                     const a = Date.parse(item.updated);

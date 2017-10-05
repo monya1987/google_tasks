@@ -14,12 +14,13 @@ import { connect } from 'react-redux';
 /*Router*/
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 /*Material*/
-import { MuiThemeProvider, getMuiTheme } from 'material-ui/styles';
+import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
+import 'normalize.css';
 
 import { getInitialState } from '../actions/login';
 
 
-const theme = getMuiTheme();
+const theme = createMuiTheme();
 
 
 class Main extends Component {

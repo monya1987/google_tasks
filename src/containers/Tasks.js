@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { renameTasksList, removeTasksList, createTasksList, getTasksList } from '../actions/tasks';
 import Task from './Task'
 import UserBox from '../components/UserBox';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 
 import { Route, NavLink } from 'react-router-dom';
 
@@ -67,11 +67,12 @@ class Tasks extends Component {
                         <div className="row">
                             <div className="col-sm-3">
                                 <h2>Tasks List</h2>
-                                <RaisedButton
-                                    label="Create new list"
+                                <Button
                                     primary={true}
                                     fullWidth={true}
-                                    onClick={this.handleCreateList} />
+                                    onClick={this.handleCreateList}>
+                                    Create new list
+                                </Button>
                                 <ul className="tasks-list">
                                 {this.props.tasks.map((item, index) => {
                                     const a = Date.parse(item.updated);

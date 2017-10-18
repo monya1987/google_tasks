@@ -23,9 +23,9 @@ class Login extends Component {
         return (
             <div className="Login">
                 {this.props.login.isLoggedIn ?
-                    <Button secondary={true} onClick={this.handlelogOut}>{name}</Button>
+                    <Button onClick={this.handlelogOut}>{name}</Button>
                     :
-                    <Button secondary={true} onClick={this.handleLogin}>Log in with Google</Button>
+                    <Button onClick={this.handleLogin}>Log in with Google</Button>
                 }
             </div>
         );

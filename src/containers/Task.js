@@ -3,20 +3,21 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 /*Actions*/
 import { getTaskList } from '../actions/task';
-import Button from 'material-ui/Button';
 
+import compose from 'recompose/compose';
+
+import withWidth from 'material-ui/utils/withWidth';
+import { withStyles } from 'material-ui/styles';
+
+
+const styles = theme => ({
+    gray: {
+        color: 'gray',
+    },
+});
 
 
 class Task extends Component {
-    constructor(props) {
-        super(props);
-        this.handleAddTask = this.handleAddTask.bind(this);
-        this.handleClearCompleted = this.handleClearCompleted.bind(this);
-    }
-
-    // componentWillMount() {
-    //     this.props.getTaskList(this.props.match.params.id);
-    // }
 
     componentWillReceiveProps(nextProps) {
         if (this.props.history.location.pathname !== this.props.location.pathname) {
@@ -28,27 +29,12 @@ class Task extends Component {
         this.props.getTaskList(this.props.match.params.id);
     }
 
-    shouldComponentUpdate() {
-        return true;
-    }
-
-    handleAddTask() {
-
-    }
-
-    handleClearCompleted() {
-
-    }
-
     render() {
-        // console.log(this);
+        const {classes, location, task} = this.props;
         return (
             <div>
-                <h2><span>List name:</span> {this.props.location.itemTitle}</h2>
-                <Button onClick={this.handleAddTask}>Add Task</Button>
-                <Button style={{float: 'right'}} onClick={this.handleClearCompleted}>Clear completed</Button>
-                <br/><br/>
-                {this.props.task.map((item, index) => {
+                <h2><span className={classes.gray}>List:</span> {location.itemTitle}</h2>
+                {task.map((item, index) => {
                     const a = Date.parse(item.updated);
                     const d = new Date(a);
                     return (
@@ -58,9 +44,8 @@ class Task extends Component {
                             className="messages-wrapper"
                             data-id={item.id}
                         >
+                            <span className={classes.gray}>{`${d.getDate()} / ${d.getMonth()} / ${d.getFullYear()} `}</span><br/>
                             {item.title}
-                            <span className="date">{`${d.getDate()} / ${d.getMonth()} / ${d.getFullYear()} `}</span>
-                            <a href="#complete">complete</a>
                             <br/><br/>
                         </div>
                             : null}
@@ -83,4 +68,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Task)
+export default compose(withStyles(styles), withWidth(), connect(mapStateToProps, mapDispatchToProps))(Task);

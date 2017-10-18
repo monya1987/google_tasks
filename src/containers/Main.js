@@ -19,8 +19,62 @@ import 'normalize.css';
 
 import { getInitialState } from '../actions/login';
 
-
-const theme = createMuiTheme();
+const theme = (outerTheme) => {
+    const typography = {
+        fontFamily: `'Arial'`,
+        fontSize: 16,
+        fontWeight: 500,
+        color: '#1b2833',
+        display4: {
+            marginTop: 0,
+            lineHeight: 1,
+            color: '#1b2833',
+        },
+    }
+    return {
+        ...outerTheme,
+        typography,
+        root: {
+            margin: '0 auto',
+            maxWidth: '1200px',
+            width: '100%',
+            '& a': {
+                color: '#1a0dab',
+                textDecoration: 'none',
+                '&:hover': {
+                    textDecoration: 'underline',
+                }
+            }
+        },
+        rootPaper: {
+            margin: '40px auto 0',
+            maxWidth: '1200px',
+            width: '100%',
+            padding: '20px',
+        },
+        overrides: {
+            MuiButton: {
+                root: {
+                    backgroundColor: '#0099EE',
+                    borderRadius: 0,
+                    lineHeight: '20px',
+                    fontWeight: 300,
+                    textAlign: 'center',
+                    padding: '8px 16px',
+                    color: '#fff',
+                    [outerTheme.breakpoints.down('sm')]: {
+                        minWidth: 120,
+                    },
+                    '&:hover': {
+                        textDecoration: 'none',
+                        backgroundColor: '#85c7ea',
+                    }
+                },
+            }
+        }
+    }
+}
+const outerTheme = createMuiTheme();
 
 
 class Main extends Component {
@@ -30,17 +84,19 @@ class Main extends Component {
     render() {
         return (
             <Provider store={this.props.store}>
-                <MuiThemeProvider theme={theme}>
-                    <BrowserRouter>
-                        <div className="container">
-                            <Header />
-                            <Switch>
-                                <Route exact path='/' component={App} />
-                                <Route path='/about' component={About} />
-                                <Route path='/tasks' component={Tasks} />
-                            </Switch>
-                        </div>
-                    </BrowserRouter>
+                <MuiThemeProvider theme={outerTheme}>
+                    <MuiThemeProvider theme={theme}>
+                        <BrowserRouter>
+                            <div className="container">
+                                <Header />
+                                <Switch>
+                                    <Route exact path='/' component={App} />
+                                    <Route path='/about' component={About} />
+                                    <Route path='/tasks' component={Tasks} />
+                                </Switch>
+                            </div>
+                        </BrowserRouter>
+                    </MuiThemeProvider>
                 </MuiThemeProvider>
             </Provider>
         );

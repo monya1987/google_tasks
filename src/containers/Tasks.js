@@ -1,6 +1,16 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+
+import compose from 'recompose/compose';
+
+import withWidth from 'material-ui/utils/withWidth';
+import { withStyles } from 'material-ui/styles';
+
+import Grid from 'material-ui/Grid';
+import Paper from 'material-ui/Paper';
+
+
 /*Actions*/
 import { renameTasksList, removeTasksList, createTasksList, getTasksList } from '../actions/tasks';
 import Task from './Task'
@@ -9,6 +19,55 @@ import Button from 'material-ui/Button';
 
 import { Route, NavLink } from 'react-router-dom';
 
+const styles = theme => ({
+    root: theme.root,
+    rootPaper: theme.rootPaper,
+    taskList: {
+        listStyle: 'none',
+        margin: 0,
+        marginTop: '20px',
+        padding: 0,
+        '& > li': {
+            borderBottom: '2px solid #ccc',
+            paddingBottom: '15px',
+            marginBottom: '15px',
+        },
+        '& .active': {
+            borderLeft: '2px solid #FC0064',
+            paddingLeft: '15px',
+            color: '#FC0064',
+        }
+    },
+    taskDate: {
+        display: 'block',
+        fontStyle: 'italic',
+        fontSize: '11px',
+        color: '#666',
+        textAlign: 'right',
+    },
+    messageWrap: {
+
+    },
+    taskTitle: {
+        display: 'block',
+        marginBottom: '10px',
+        fontSize: '18px',
+        textDecoration: 'none',
+    },
+    renameList: {
+        fontSize: '11px',
+        marginRight: '10px',
+    },
+    removeList: {
+        fontSize: '11px',
+        marginRight: '10px',
+    },
+    buttonSome: {
+        color: '#000',
+        background: 'transparent',
+        border: '2px solid #ccc',
+    }
+});
 
 
 class Tasks extends Component {
@@ -36,84 +95,66 @@ class Tasks extends Component {
         this.props.renameTasksList(id);
     }
     componentWillMount() {
-        // if (this.props.login.isLoggedIn) {
-            this.props.getTasksList();
-        // }
-        // if (!this.props.login.isLoggedIn) {
-        //     this.props.history.push('/');
-        // }
-    }
-    componentWillReceiveProps(nextProps) {
-        // console.log('aaaaaaaaaaaa',nextProps.tasks.length);
-        // console.log('bbbbbbbbbbbb',this.props.tasks.length);
-        // console.log(next);
-        // this.props.getTasksList();
-        // if (this.props.login.isLoggedIn) {
-        // this.props.getTasksList()
-        // }
-    }
-    componentDidMount() {
-        // if (this.props.login.isLoggedIn) {
-        //     this.props.getTasksList()
-        // }
+        this.props.getTasksList();
     }
 
+
     render() {
-        // console.log(this.props.tasks);
+        const {classes, login, tasks} = this.props;
         return (
-            <div>
-                {this.props.login.isLoggedIn ?
-                    <div>
-                        <div className="row">
-                            <div className="col-sm-3">
+            <Paper className={classes.rootPaper}>
+                {login.isLoggedIn ?
+                    <Grid container>
+                        <Grid item xs={3}>
                                 <h2>Tasks List</h2>
                                 <Button
-                                    primary={true}
-                                    fullWidth={true}
+                                    className={classes.buttonSome}
                                     onClick={this.handleCreateList}>
                                     Create new list
                                 </Button>
-                                <ul className="tasks-list">
-                                {this.props.tasks.map((item, index) => {
+                                <ul className={classes.taskList}>
+                                {tasks.map((item, index) => {
                                     const a = Date.parse(item.updated);
                                     const d = new Date(a);
+                                    console.log(item.title);
                                     return (
                                         <li
                                             key={index}
-                                            className="messages-wrapper"
+                                            className={classes.messageWrap}
                                             data-id={item.id}
                                             ref={(input) => { this.listInfo = input; }}
                                         >
-                                            <span className="date">{`${d.getDate()} / ${d.getMonth()} / ${d.getFullYear()} `}</span>
+                                            <span className={classes.taskDate}>{`${d.getDate()} / ${d.getMonth()} / ${d.getFullYear()} `}</span>
                                             <NavLink
                                                 onClick={this.handleOpen}
-                                                activeClassName="active"
+                                                activeClassName={classes.taskTitleActive}
                                                 to={{pathname: `/tasks/${item.id}`, itemTitle: item.title}}
-                                                className="title"
+                                                className={classes.taskTitle}
                                             >
                                                     {item.title}
                                             </NavLink>
-                                            <a href="#rename" onClick={this.handleRename} className="rename">Rename</a>
-                                            <a href="#remove" onClick={this.handleRemove} className="remove">Remove</a>
+                                            <a href="#rename" onClick={this.handleRename} className={classes.renameList}>Rename</a>
+                                            <a href="#remove" onClick={this.handleRemove} className={classes.removeList}>Remove</a>
                                         </li>
                                     )
                                 })}
                                 </ul>
-                            </div>
-                            <div className="col-sm-5">
-
+                            </Grid>
+                            <Grid item xs={5}>
                                 <Route path='/tasks/:id' component={Task}/>
-                            </div>
-                            <div className="col-sm-4">
-                                <UserBox user={this.props.login} />
-                            </div>
-                        </div>
-                    </div>
+                            </Grid>
+                            <Grid item xs={4}>
+                                <UserBox user={login} />
+                            </Grid>
+                    </Grid>
                     :
-                   <div>Login please</div>
+                    <Grid item xs={12}>
+                        <h1>Tasks page</h1>
+                        <p>Please login to control your task lists.</p>
+                    </Grid>
                 }
 
-            </div>
+            </Paper>
         )
     }
 }
@@ -133,4 +174,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Tasks)
+export default compose(withStyles(styles), withWidth(), connect(mapStateToProps, mapDispatchToProps))(Tasks);

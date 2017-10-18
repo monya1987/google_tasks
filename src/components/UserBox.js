@@ -1,18 +1,39 @@
 import React, { Component } from 'react';
 
-export default class UserBox extends Component {
+import compose from 'recompose/compose';
+import withWidth from 'material-ui/utils/withWidth';
+import { withStyles } from 'material-ui/styles';
+
+const styles = theme => ({
+    root: theme.root,
+    rootPaper: theme.rootPaper,
+    userBox: {
+
+    },
+    userEmail: {
+
+    },
+    userName: {
+
+    }
+});
+
+class UserBox extends Component {
     render() {
+        const {classes, user} = this.props;
         return(
             <div>
-                {this.props.user.isLoggedIn ?
-                    <div className="user-box">
+                {user.isLoggedIn ?
+                    <div className={classes.userBox}>
                         <h2>Profile info:</h2>
-                        <img src={this.props.user.photo} alt=""/>
-                        <p className="email">{this.props.user.email}</p>
-                        <p className="name">{this.props.user.name}</p>
+                        <img src={user.photo} alt=""/>
+                        <p className={classes.userEmail}>{user.email}</p>
+                        <p className={classes.userName}>{user.name}</p>
                     </div>
                     : null}
             </div>
         )
     }
 }
+
+export default compose(withStyles(styles), withWidth())(UserBox);

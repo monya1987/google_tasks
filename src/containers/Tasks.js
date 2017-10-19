@@ -13,6 +13,7 @@ import Paper from 'material-ui/Paper';
 
 /*Actions*/
 import { renameTasksList, removeTasksList, createTasksList, getTasksList } from '../actions/tasks';
+
 import Task from './Task'
 import UserBox from '../components/UserBox';
 import Button from 'material-ui/Button';
@@ -73,68 +74,62 @@ const styles = theme => ({
 class Tasks extends Component {
     constructor(props) {
         super(props);
-        this.handleOpen = this.handleOpen.bind(this);
         this.handleRemove = this.handleRemove.bind(this);
         this.handleRename = this.handleRename.bind(this);
         this.handleCreateList = this.handleCreateList.bind(this);
     }
+
     handleCreateList() {
         this.props.createTasksList();
     }
-    handleOpen() {
-
-    }
     handleRemove(event) {
-        let id = this.listInfo.dataset.id;
         event.preventDefault();
+        let id = event.target.dataset.id;
         this.props.removeTasksList(id);
     }
     handleRename(event) {
-        let id = this.listInfo.dataset.id;
         event.preventDefault();
+        let id = event.target.dataset.id;
         this.props.renameTasksList(id);
     }
-    componentWillMount() {
-        this.props.getTasksList();
-    }
-
 
     render() {
-        const {classes, login, tasks} = this.props;
+        const {classes, loginStatus, tasksList} = this.props;
+        if (this.props.loginStatus.isLoggedIn && !this.props.fetched) {
+            this.props.getTasksList();
+        }
         return (
             <Paper className={classes.rootPaper}>
-                {login.isLoggedIn ?
+                {loginStatus.isLoggedIn ?
                     <Grid container>
                         <Grid item xs={3}>
-                                <h2>Tasks List</h2>
+                                <h2>Tasks Lists</h2>
                                 <Button
                                     className={classes.buttonSome}
                                     onClick={this.handleCreateList}>
                                     Create new list
                                 </Button>
                                 <ul className={classes.taskList}>
-                                {tasks.map((item, index) => {
+                                {tasksList.map((item, index) => {
                                     const a = Date.parse(item.updated);
                                     const d = new Date(a);
-                                    console.log(item.title);
                                     return (
                                         <li
                                             key={index}
                                             className={classes.messageWrap}
-                                            data-id={item.id}
                                             ref={(input) => { this.listInfo = input; }}
                                         >
                                             <span className={classes.taskDate}>{`${d.getDate()} / ${d.getMonth()} / ${d.getFullYear()} `}</span>
                                             <NavLink
-                                                onClick={this.handleOpen}
                                                 activeClassName={classes.taskTitleActive}
-                                                to={{pathname: `/tasks/${item.id}`, itemTitle: item.title}}
+                                                to={{pathname: `/tasks/${item.id}`}}
                                                 className={classes.taskTitle}
+                                                onClick={this.handleUpdateTasks}
                                             >
                                                     {item.title}
                                             </NavLink>
-                                            <a href="#rename" onClick={this.handleRename} className={classes.renameList}>Rename</a>
-                                            <a href="#remove" onClick={this.handleRemove} className={classes.removeList}>Remove</a>
+                                            <a href="#rename" data-id={item.id} onClick={this.handleRename} className={classes.renameList}>Rename</a>
+                                            <a href="#remove" data-id={item.id} onClick={this.handleRemove} className={classes.removeList}>Remove</a>
                                         </li>
                                     )
                                 })}
@@ -144,7 +139,7 @@ class Tasks extends Component {
                                 <Route path='/tasks/:id' component={Task}/>
                             </Grid>
                             <Grid item xs={4}>
-                                <UserBox user={login} />
+                                <UserBox user={loginStatus} />
                             </Grid>
                     </Grid>
                     :
@@ -161,8 +156,9 @@ class Tasks extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        login: state.loginReducer,
-        tasks: state.getTasksReducer.tasks,
+        loginStatus: state.loginReducer,
+        tasksList: state.getTasksReducer.tasks,
+        fetched: state.getTasksReducer.fetched,
     }
 };
 const mapDispatchToProps = (dispatch) => {

@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1cd029f1-49fc-4c72-b15b-d853bdb10177" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/index.html" afterPath="$PROJECT_DIR$/build/index.html" />
-    </list>
+    <list default="true" id="1cd029f1-49fc-4c72-b15b-d853bdb10177" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -76,7 +74,7 @@
         <entry file="file://$PROJECT_DIR$/build/index.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
-              <caret line="0" column="352" lean-forward="false" selection-start-line="0" selection-start-column="352" selection-end-line="0" selection-end-column="352" />
+              <caret line="0" column="366" lean-forward="false" selection-start-line="0" selection-start-column="366" selection-end-line="0" selection-end-column="366" />
               <folding />
             </state>
           </provider>
@@ -239,6 +237,27 @@
             <path>
               <item name="react_google_tasks" type="b2602c69:ProjectViewProjectNode" />
               <item name="react_google_tasks" type="462c0819:PsiDirectoryNode" />
+              <item name="build" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react_google_tasks" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react_google_tasks" type="462c0819:PsiDirectoryNode" />
+              <item name="build" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react_google_tasks" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react_google_tasks" type="462c0819:PsiDirectoryNode" />
+              <item name="build" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+              <item name="main.87f10729.js" type="620a8d5e:NestingTreeNode" />
+            </path>
+            <path>
+              <item name="react_google_tasks" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react_google_tasks" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -296,12 +315,12 @@
       <workItem from="1507890922584" duration="1631000" />
       <workItem from="1508160947445" duration="1961000" />
       <workItem from="1508310942946" duration="19985000" />
-      <workItem from="1508399451321" duration="21156000" />
+      <workItem from="1508399451321" duration="21241000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="183272000" />
+    <option name="totallyTimeSpent" value="183357000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1920" y="-4" width="1920" height="1084" extended-state="6" />
@@ -731,7 +750,7 @@
     <entry file="file://$PROJECT_DIR$/build/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="352" lean-forward="false" selection-start-line="0" selection-start-column="352" selection-end-line="0" selection-end-column="352" />
+          <caret line="0" column="366" lean-forward="false" selection-start-line="0" selection-start-column="366" selection-end-line="0" selection-end-column="366" />
           <folding />
         </state>
       </provider>

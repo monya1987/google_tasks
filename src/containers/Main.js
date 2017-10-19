@@ -90,9 +90,9 @@ class Main extends Component {
                             <div className="container">
                                 <Header />
                                 <Switch>
-                                    <Route exact path='/' component={App} />
-                                    <Route path='/about' component={About} />
-                                    <Route path='/tasks' component={Tasks} />
+                                    <Route exact path='https://monya1987.github.io/react_google_tasks/build/' component={App} />
+                                    <Route path='https://monya1987.github.io/react_google_tasks/build/about' component={About} />
+                                    <Route path='https://monya1987.github.io/react_google_tasks/build/tasks' component={Tasks} />
                                 </Switch>
                             </div>
                         </BrowserRouter>
